@@ -1,0 +1,19 @@
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class GlobalVars {
+
+  baseURL = 'https://www.vrbasgis.net:8443/gis-4.0.1';
+
+  constructor() {
+  }
+
+  public setBaseURL(value: string) {
+    this.baseURL = value;
+  }
+
+  public getBaseURL(): string {
+    return this.baseURL;
+  }
+
+}

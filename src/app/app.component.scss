@@ -1,0 +1,73 @@
+.hideSideNavBtn {
+    float: right;
+}
+
+.meni-ko {
+    padding-top: 30px;
+}
+
+.btn-sloj {
+    width: 230px !important;
+    text-align: left;
+}
+
+.mn-slojevi {
+    height: 32px;
+    float: left !important;
+}
+
+.btn-legend {
+    float: right;
+    width: 20px !important;
+}
+
+.mapa-container {
+    padding-top:2px;
+}
+
+.ukloni-slojeve {
+    padding-top: 70px!important;
+}
+
+.subkat {
+    padding-left: 15px;
+}
+
+.searchfield {
+    font-size: small;
+    height: fit-content;
+}
+
+.showSideNavContainer {
+    position: absolute;
+    padding-top: 5px;
+}
+
+.showSideNavBtn {
+    position: absolute;
+    z-index:999;
+}
+
+.ogranicenje {
+    padding-left: 20px;
+    padding-top: 40px;
+    font-size: x-small;
+    color: gray;
+}
+
+.rgzAdrese {
+    padding-top: 20px;
+    padding-left: 32px;
+    font-size: small;
+}
+
+.login{
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  padding-top: 12px;
+  height: 60% !important;
+}
