@@ -8,7 +8,7 @@ import { EventEmitterService } from 'src/app/providers/event-emitter.service';
 import { KategorijaService } from 'src/app/providers/kategorija.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DialogService } from 'src/app/providers/dialog.service';
-import { Router } from '@angular/router';
+import { TokenStorageService } from './providers/token-storage.service';
 
 
 @Component({
@@ -19,6 +19,8 @@ import { Router } from '@angular/router';
 
 
 export class AppComponent implements OnInit {
+  private roles: string[] = [];
+  username?: string;
   title = 'GIS Vrbas';
   menuLayers: MenuLayer[] = [];
   listaKat: Kategorija[] = [];
@@ -43,11 +45,16 @@ export class AppComponent implements OnInit {
     private kategorijaService: KategorijaService,
     private ngxService: NgxUiLoaderService,
     private dialogService: DialogService,
-    private router: Router
+    private tokenStorageService: TokenStorageService
   ) {
   }
 
   ngOnInit() {
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+      this.username = user.username;
+    }
     this.storageMap.get('KO').subscribe((katOpst: KO) => {
       if (katOpst) {
         this.eventEmitter.KOChange.emit(katOpst);
@@ -253,6 +260,20 @@ export class AppComponent implements OnInit {
 
   displayLegend(l: Layer) {
     this.dialogService.displayLegend(l);
+  }
+
+  displayLogin(){
+    this.dialogService.displayLogin();
+  }
+
+  isLoggedIn(){
+    return  !!this.tokenStorageService.getToken();
+  }
+
+  logout(){
+    this.tokenStorageService.signOut();
+    this.username = null;
+    this.roles = [];
   }
 
   toggleRGZAdrese(){

@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Layer } from 'src/models/layer';
 import { DialogLayerPreviewComponent } from 'src/app/dialog-layer-preview/dialog-layer-preview.component';
+import { LoginComponent } from '../login/login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -42,4 +43,11 @@ export class DialogService {
     dialogConfig.hasBackdrop = true;
     this.dialog.open(DialogLayerPreviewComponent, dialogConfig);
   }
+
+displayLogin(){
+  const dialogRef = this.dialog.open(LoginComponent, {
+    width: '250px',
+  });
+}
+
 }
