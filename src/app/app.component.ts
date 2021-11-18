@@ -50,10 +50,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.isLoggedIn) {
+    if (!!this.tokenStorageService.getToken()) {
       const user = this.tokenStorageService.getUser();
+      console.log("User: " + JSON.stringify(user));
       this.roles = user.roles;
       this.username = user.username;
+    } else {
+      console.log("Not logged in!");
     }
     this.storageMap.get('KO').subscribe((katOpst: KO) => {
       if (katOpst) {
@@ -258,16 +261,16 @@ export class AppComponent implements OnInit {
     this.dialogService.displayLayerPreview({ layer, x, y });
   }
 
+  isLoggedIn(){
+    return !!this.tokenStorageService.getToken();
+  }
+
   displayLegend(l: Layer) {
     this.dialogService.displayLegend(l);
   }
 
   displayLogin(){
     this.dialogService.displayLogin();
-  }
-
-  isLoggedIn(){
-    return  !!this.tokenStorageService.getToken();
   }
 
   logout(){
