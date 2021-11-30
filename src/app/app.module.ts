@@ -7,6 +7,7 @@ import { MapaComponent } from './mapa/mapa.component';
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { FormsModule } from '@angular/forms';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { EventEmitterService } from 'src/app/providers/event-emitter.service';
@@ -28,6 +29,7 @@ import { DialogLayerPreviewComponent } from './dialog-layer-preview/dialog-layer
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './helpers/auth.interceptor';
+import { ImovinaComponent } from './imovina/imovina.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'green',
@@ -68,6 +70,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     DialogLayerPreviewComponent,
     LoginComponent,
     RegisterComponent,
+    ImovinaComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +81,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AngularMaterialModule,
     ColorPickerModule,
     MatButtonToggleModule,
+    MatTooltipModule,
     StorageModule.forRoot({
       IDBNoWrap: true,
     }),

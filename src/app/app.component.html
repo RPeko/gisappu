@@ -5,12 +5,10 @@
     <button mat-icon-button class="hideSideNavBtn" (click)="sideNav.toggle()">
       <mat-icon>maximize</mat-icon>
     </button>
-    <div class="meni-ko">
+    <div class="meni-ko" *ngIf="isMenuModMapa()">
       <button mat-button [matMenuTriggerFor]="menuKO">
         <mat-icon>swap_horiz</mat-icon>promeni naselje {{currentKO}}
       </button>
-    </div>
-    <div>
       <h4 matSubheader>
         Izaberi slojeve:
       </h4>
@@ -54,26 +52,35 @@
       </mat-list>
       <mat-checkbox class="rgzAdrese" [(ngModel)]="ucitaneRGZAdrese" (click)="toggleRGZAdrese()">Adrese ®RGZ
       </mat-checkbox>
+      <mat-menu #menuKO="matMenu">
+        <button mat-menu-item *ngFor="let KO of listaKO" (click)="promeniKO(KO)">{{KO.nazivKO}}</button>
+      </mat-menu>
+      <div class="ukloni-slojeve">
+        <button mat-button (click)="removeAllLayers()">
+          <mat-icon>layers_clear</mat-icon>ukloni sve slojeve
+        </button>
+      </div>
+      <div class="grey_comments">
+        <p>
+          Podaci u GIS-u su orijentacioni
+        </p>
+        <p>
+          i nisu za službenu upotrebu.
+        </p>
+      </div>
     </div>
-    <mat-menu #menuKO="matMenu">
-      <button mat-menu-item *ngFor="let KO of listaKO" (click)="promeniKO(KO)">{{KO.nazivKO}}</button>
-    </mat-menu>
-    <div class="ukloni-slojeve">
-      <button mat-button (click)="removeAllLayers()">
-        <mat-icon>layers_clear</mat-icon>ukloni sve slojeve
+    <div>
+      <div *ngIf="isLoggedIn(); then loggedInBlock else notLoggedInBlock">
+      </div>
+      <button *ngIf="!isMenuModMapa()" (click)="setMenuModMapa()">
+        Mapa
+      </button>
+      <button *ngIf="showAdminBtn()" (click)="setMenuModAdmin()">
+        Administracija
       </button>
     </div>
-    <div *ngIf="isLoggedIn(); then thenBlock else elseBlock">
-    </div>
-    <div class="grey_comments">
-      <p>
-        Podaci u GIS-u su orijentacioni
-      </p>
-      <p>
-        i nisu za službenu upotrebu.
-      </p>
-    </div>
   </mat-drawer>
+
   <mat-drawer-content class="sideNav.isOpen?mapa-container:mapa-container">
     <router-outlet>
       <div class="showSideNavContainer">
@@ -86,7 +93,7 @@
 </mat-drawer-container>
 
 
-<!-- Filter template --> 
+<!-- Filter template -->
 <ng-template #filter let-l='l'>
   <div *ngFor="let filter of l.filteri">
     <button mat-button (click)="reloadLayer(l)">
@@ -101,7 +108,7 @@
 </ng-template>
 
 
-<!-- Layers template --> 
+<!-- Layers template -->
 <ng-template #listitem let-k='k'>
   <mat-list-item *ngFor="let l of k.layers"
     style="font-size: small; height: fit-content; padding-bottom: 2px; padding-left: 10px">
@@ -126,20 +133,20 @@
   </mat-list-item>
 </ng-template>
 
-<!-- Login templates --> 
-<ng-template #thenBlock>
+<!-- Login templates -->
+<ng-template #loggedInBlock>
   <p class="login">
-    <button  (click)="logout()">
+    <button (click)="logout()" matTooltip="Odjavi se">
       <mat-icon>logout</mat-icon>
     </button>
   </p>
-  <p class = "grey_comments">
+  <p class="grey_comments">
     Korisnik: {{username }}
   </p>
 </ng-template>
-<ng-template class="login"  #elseBlock>
+<ng-template class="login" #notLoggedInBlock>
   <p class="login">
-    <button  (click)="displayLogin()">
+    <button (click)="displayLogin()" matTooltip="Prijavi se">
       <mat-icon>login</mat-icon>
     </button>
   </p>

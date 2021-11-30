@@ -9,6 +9,7 @@ import { KategorijaService } from 'src/app/providers/kategorija.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DialogService } from 'src/app/providers/dialog.service';
 import { TokenStorageService } from './providers/token-storage.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,6 +22,7 @@ import { TokenStorageService } from './providers/token-storage.service';
 export class AppComponent implements OnInit {
   private roles: string[] = [];
   username?: string;
+  menu_mode = 'mapa';
   title = 'GIS Vrbas';
   menuLayers: MenuLayer[] = [];
   listaKat: Kategorija[] = [];
@@ -40,8 +42,9 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    public storageMap: StorageMap,
-    public eventEmitter: EventEmitterService,
+    private storageMap: StorageMap,
+    private router: Router,
+    private eventEmitter: EventEmitterService,
     private kategorijaService: KategorijaService,
     private ngxService: NgxUiLoaderService,
     private dialogService: DialogService,
@@ -50,14 +53,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!!this.tokenStorageService.getToken()) {
-      const user = this.tokenStorageService.getUser();
-      console.log("User: " + JSON.stringify(user));
-      this.roles = user.roles;
-      this.username = user.username;
-    } else {
-      console.log("Not logged in!");
-    }
     this.storageMap.get('KO').subscribe((katOpst: KO) => {
       if (katOpst) {
         this.eventEmitter.KOChange.emit(katOpst);
@@ -74,6 +69,14 @@ export class AppComponent implements OnInit {
         this.getListaKat();
       });
     });
+    if (!!this.tokenStorageService.getToken()) {
+      const user = this.tokenStorageService.getUser();
+      console.log("User: " + JSON.stringify(user));
+      this.roles = user.roles;
+      this.username = user.username;
+    } else {
+      console.log("Not logged in!");
+    }
   }
 
   getListaKat() {
@@ -277,10 +280,32 @@ export class AppComponent implements OnInit {
     this.tokenStorageService.signOut();
     this.username = null;
     this.roles = [];
+    this.setMenuModMapa();
   }
 
   toggleRGZAdrese(){
     this.eventEmitter.rgzAdreseSwitch.emit(this.ucitaneRGZAdrese);
   }
 
+  isMenuModMapa(){
+    return this.menu_mode == 'mapa';
+  }
+
+  showAdminBtn(){
+    if(this.menu_mode == 'mapa' && this.isLoggedIn()){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  setMenuModMapa(){
+    this.menu_mode = 'mapa';
+    this.router.navigate(['mapa']);
+  }
+
+  setMenuModAdmin(){
+    this.menu_mode = 'adm';
+    this.router.navigate(['imovina']);
+  }
 }
