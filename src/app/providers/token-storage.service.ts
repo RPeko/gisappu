@@ -1,3 +1,4 @@
+import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'auth-token';
@@ -14,7 +15,7 @@ export class TokenStorageService {
   signOut(): void {
     window.sessionStorage.clear();
   }
-
+  
   public saveToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
@@ -31,8 +32,12 @@ export class TokenStorageService {
 
   public getUser(): any {
     const user = window.sessionStorage.getItem(USER_KEY);
-    if (user){
-      return JSON.parse(user);
+    let u: any;
+    try {
+      u = JSON.parse(user)
+    } catch(e) {
+      console.log(e);
     }
+    return u;
   }
 }

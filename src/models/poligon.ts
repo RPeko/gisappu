@@ -10,5 +10,7 @@ export class Poligon {
   strokeWeight: number;
   fillColor: string;
   fillOpacity: number;
+  objectId: number;
+  layerId: number;
   detalji: any;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Detalj } from 'src/models/detalj';
 
 @Component({
   selector: 'app-dialog-details',
@@ -7,25 +8,20 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./dialog-details.component.scss']
 })
 export class DialogDetailsComponent implements OnInit {
-  detalji: Map<string, string> = new Map<string, string>();
-  lista: { key: string, value: string }[] = [];
-  displayedColumns: string[] = ['key', 'value'];
+  detalji: Detalj[];
+  displayedColumns = ['stavka', 'opis'];
 
   constructor(public dialogRef: MatDialogRef<DialogDetailsComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: string) {
+              @Inject(MAT_DIALOG_DATA) public data: Detalj[]) {
     try {
-      this.detalji = JSON.parse(data);
+      // console.log(data);
+      this.detalji = data;
     } catch (e) {
-
+      console.log('Ovde je greska')
     }
   }
-
-
   ngOnInit() {
-    Object.keys(this.detalji).forEach(k => {
-      this.lista.push({ key: k, value: this.detalji[k] });
-    });
-
+    
   }
 
 }

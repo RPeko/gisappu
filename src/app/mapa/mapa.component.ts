@@ -20,6 +20,7 @@ import { DialogDetailsComponent } from '../dialog-details/dialog-details.compone
 import { DialogService } from 'src/app/providers/dialog.service';
 import { LinijeService } from 'src/app/providers/linije.service';
 import { Layer } from 'src/models/layer';
+import { DetaljiService } from '../providers/detalji.service';
 
 const wmsRGZAdreseURL = 'https://www.vrbasgis.net:8443/geoserver/vgis/wms?version=1.3.0&'
 const wmsRGZAdreseOptions = {
@@ -88,7 +89,8 @@ export class MapaComponent implements OnInit {
     private mlinijeService: MLinijeService,
     private poligoniService: PoligoniService,
     private rasvetaService: RasvetaService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private detaljiService: DetaljiService
   ) { }
 
   ngOnInit() {
@@ -388,16 +390,21 @@ export class MapaComponent implements OnInit {
     pElement.innerHTML = poligon.info;
     pElement.innerHTML += '<br\>';
     pElement.innerHTML += '<br\>';
-
-    if (poligon.detalji && poligon.detalji !== null) {
+  
+    if (poligon.detalji && poligon.detalji == 'get') {
       const bElement = document.createElement('button');
       bElement.id = 'popup_button';
       bElement.addEventListener('click',
         () =>
-          this.dialogService.dialog.open(DialogDetailsComponent, {
-            // width: '250px',
-            data: poligon.detalji
-          })
+        {
+            this.detaljiService.getDetalji(poligon.layerId, poligon.objectId).subscribe(
+              (lista) => {
+                this.dialogService.dialog.open(DialogDetailsComponent, {
+                  data: lista
+                });
+              }
+            )
+        }         
       );
       bElement.innerHTML = 'Detaljno';
       pElement.appendChild(bElement);
@@ -405,7 +412,6 @@ export class MapaComponent implements OnInit {
     divElement.appendChild(pElement);
     lmp.bindPopup(divElement);
     paths = [];
-
     return lmp;
   }
 

@@ -29,7 +29,13 @@ import { DialogLayerPreviewComponent } from './dialog-layer-preview/dialog-layer
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './helpers/auth.interceptor';
+import { DetaljiService } from './providers/detalji.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ObjektiComponent } from './objekti/objekti.component';
+import { ObjekatService } from './providers/objekat.service';
 import { ImovinaComponent } from './imovina/imovina.component';
+import { GisComponent } from './gis/gis.component';
+import { UsersComponent } from './users/users.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'green',
@@ -57,7 +63,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text: 'Molimo sačekajte...',
   textColor: '#FFFFFF',
   textPosition: 'center-center',
-  maxTime: 0,
+  maxTime: 10000,
   minTime: 0
 };
 
@@ -70,7 +76,10 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     DialogLayerPreviewComponent,
     LoginComponent,
     RegisterComponent,
+    ObjektiComponent,
     ImovinaComponent,
+    GisComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +91,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ColorPickerModule,
     MatButtonToggleModule,
     MatTooltipModule,
+    MatDialogModule,
     StorageModule.forRoot({
       IDBNoWrap: true,
     }),
@@ -97,7 +107,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     RasvetaService,
     KategorijaService,
     GlobalVars,
-    AuthInterceptor
+    AuthInterceptor,
+    DetaljiService,
+    ObjekatService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,39 @@
+<article>
+  <h2>Opštinski objekti</h2>
+  <article class="table-header">
+    <button class="button-remove-rows" mat-button (click)="removeSelectedRows()">Remove Rows</button>
+    <button class="button-add-row" mat-button (click)="addRow()">Add Row</button>
+  </article>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
+      <th mat-header-cell *matHeaderCellDef>
+        <span *ngIf="col !== 'isEdit' && col !== 'isSelected'">
+          {{col}}
+        </span>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit">
+          <ng-container *ngSwitchCase="'isSelected'">
+            <mat-checkbox (change)="element.isSelected = $event.checked"></mat-checkbox>
+          </ng-container>
+          <div class="btn-edit" *ngSwitchCase="'isEdit'">
+            <button mat-button class="button-remove" (click)="removeRow(element.id)">Delete</button>
+            <button (click)="element.isEdit = !element.isEdit">Edit</button>
+          </div>
+          <span *ngSwitchDefault>
+            {{element[col]}}
+          </span>
+        </div>
+        <div [ngSwitch]="dataSchema[col]" *ngIf="element.isEdit">
+          <div *ngSwitchCase="'isSelected'">
+          </div>
+          <div class="btn-edit" *ngSwitchCase="'isEdit'">
+            <button (click)="editRow(element)">Done</button>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</article>
