@@ -1,0 +1,32 @@
+<mat-drawer-container id="mainContainer">
+  <mat-drawer #sideNav mode="side" opened="true" id="matDrawer">
+    <div id="upper-menu">
+      <button mat-icon-button class="hideSideNavBtn" (click)="sideNav.toggle()">
+        <mat-icon>maximize</mat-icon>
+      </button>
+      <div id="menu-mode">
+        <mat-button-toggle-group
+        [(ngModel)]="mode" 
+        (change)="changeMode()" vertical>
+          <mat-button-toggle class="btn-toggle-mode" value="users">Korisnici</mat-button-toggle>  
+          <mat-button-toggle class="btn-toggle-mode" value="registracija">Registracija</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+    <div id="lower-menu">
+      <lower-menu>
+      </lower-menu>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div *ngIf="mode=='users'; then users else registracija"></div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<ng-template #users>
+  aaaaaaaaaaaa sredi users
+</ng-template>
+
+<ng-template #registracija>
+  <registracija></registracija>
+</ng-template>

@@ -1,4 +1,3 @@
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'auth-token';

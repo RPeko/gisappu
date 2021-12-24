@@ -20,8 +20,8 @@ export class AuthService {
     return this.http.post(this.globalVars.getBaseURL() + '/api/auth/signin', { username, password }, httpOptions);
   }
 
-  register(username: string, email: string, password: string): Observable<any>{
-    return this.http.post(this.globalVars.getBaseURL() + '/api/auth/signup', {username, email, password }, httpOptions);
+  register(username: string, email: string, password: string, roles: string[]): Observable<any>{
+    return this.http.post(this.globalVars.getBaseURL() + '/api/auth/signup', {username, email, password, roles }, httpOptions);
   }
 
 

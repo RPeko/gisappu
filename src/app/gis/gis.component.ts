@@ -8,11 +8,9 @@ import { EventEmitterService } from 'src/app/providers/event-emitter.service';
 import { KategorijaService } from 'src/app/providers/kategorija.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DialogService } from 'src/app/providers/dialog.service';
-import { TokenStorageService } from '../providers/token-storage.service';
-import { UserService } from '../providers/user.service';
 
 @Component({
-  selector: 'app-gis',
+  selector: 'gis',
   templateUrl: './gis.component.html',
   styleUrls: ['./gis.component.scss']
 })
@@ -43,8 +41,6 @@ export class GisComponent implements OnInit {
     private kategorijaService: KategorijaService,
     private ngxService: NgxUiLoaderService,
     private dialogService: DialogService,
-    private tokenStorageService: TokenStorageService,
-    private userService: UserService
   ) {
   }
 
@@ -252,34 +248,11 @@ export class GisComponent implements OnInit {
     this.dialogService.displayLayerPreview({ layer, x, y });
   }
 
-  isLoggedIn(){
-    return !!this.tokenStorageService.getToken();
-  }
-
   displayLegend(l: Layer) {
     this.dialogService.displayLegend(l);
-  }
-
-  displayLogin(){
-    this.dialogService.displayLogin();
-  }
-
-  logout(){
-    this.tokenStorageService.signOut();
-    // this.username = null;
-    // this.roles = [];
   }
 
   toggleRGZAdrese(){
     this.eventEmitter.rgzAdreseSwitch.emit(this.ucitaneRGZAdrese);
   }
-
-  username(){
-    return this.userService.getUser()?.username;
-  }
-
-  isModerator(){
-    return this.userService.isModerator();
-  }
-
 }

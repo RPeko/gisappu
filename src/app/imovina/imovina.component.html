@@ -1,20 +1,17 @@
 <mat-drawer-container id="mainContainer">
     <mat-drawer #sideNav mode="side" opened="true" id="matDrawer">
-      <button mat-icon-button class="hideSideNavBtn" (click)="sideNav.toggle()">
-        <mat-icon>maximize</mat-icon>
-      </button>
-      <div class="menu">
-          <button [routerLink]="['gis']" class="menuBtn">
-            GIS
-          </button>
-      </div>
-      <div *ngIf="isAdmin()" class="menu">
-        <button [routerLink]="['register']" class="menuBtn">
-          Registruj
+      <div id="upper-menu">
+        <button mat-icon-button class="hideSideNavBtn" (click)="sideNav.toggle()">
+          <mat-icon>maximize</mat-icon>
         </button>
+      </div>
+      <div id="lower-menu">
+        <lower-menu>    
+        </lower-menu>
       </div>
     </mat-drawer>
     <mat-drawer-content>
-        <app-objekti></app-objekti>
+        <app-objekti>
+        </app-objekti>
     </mat-drawer-content>
-  </mat-drawer-container>l
+  </mat-drawer-container>

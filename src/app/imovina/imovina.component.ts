@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../providers/user.service';
 
 @Component({
   selector: 'app-imovina',
@@ -8,13 +7,9 @@ import { UserService } from '../providers/user.service';
 })
 export class ImovinaComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  isAdmin(){
-    return this.userService.isAdmin();
   }
 
 }

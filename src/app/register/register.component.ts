@@ -2,16 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../providers/auth.service';
 
 @Component({
-  selector: 'app-register',
+  selector: 'registracija',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+// roles_options = ['ROLE_USER', 'ROLE_MODERATOR', 'ROLE_ADMIN'];
+roles_options = ['mod', 'admin'];
 
   form: any = {
     username: null,
     email: null,
-    password: null
+    password: null,
+    roles:[]
   };
   isSuccessful = false;
   isSignUpFailed = false;
@@ -23,9 +26,9 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { username, email, password } = this.form;
+    const { username, email, password, roles } = this.form;
 
-    this.authService.register(username, email, password).subscribe(
+    this.authService.register(username, email, password, roles).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;

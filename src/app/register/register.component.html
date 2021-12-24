@@ -1,10 +1,5 @@
 <div class="col-md-12">
     <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
       <form
         *ngIf="!isSuccessful"
         name="form"
@@ -70,8 +65,19 @@
             </div>
           </div>
         </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Ovlašćenja</mat-label>
+            <mat-select name="roles"  [(ngModel)]="form.roles" multiple>
+              <mat-option *ngFor="let role of roles_options" [value]="role">{{role}}</mat-option>
+            </mat-select>
+          </mat-form-field>    
+        </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block">Sign Up</button>
+          <div id="btn-signup">
+            <button class="btn btn-primary btn-block">Sign Up</button>
+          </div>
+         
         </div>
   
         <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">

@@ -9,41 +9,30 @@ import { TokenStorageService } from './token-storage.service';
 
 export class UserService {
   user: User;
-  constructor(private tokenStorage: TokenStorageService) {
+  constructor() {
   }
 
   public setUser(user: User) {
     this.user = new User();
-    if (user && user.id){
+    if (user && user.id) {
       this.user.id = user['id'];
       this.user.username = user['username'];
       this.user.email = user['email'];
-      this.user.roles = user['roles'];
+      console.log("user-roles:" + user['roles']);
+      this.user.roles = user['roles']?user['roles']:['user'];
     }
   }
 
   public getUser(): User {
-   return this.user;
+    return this.user;
   }
 
-  public isModerator() {
-    let is_mod: boolean = false;
-    this.user.roles.forEach(role => {
-      if (role == 'ROLE_MODERATOR') {
-        is_mod = true;
-      }
-    });
-    return is_mod;
+  hasRole(role: string) {
+    return this.user.roles.includes(role);
   }
 
-  public isAdmin() {
-    let is_adm: boolean = false;
-    this.user.roles.forEach(role => {
-      if (role == 'ROLE_ADMIN') {
-        is_adm = true;
-      }
-    });
-    return is_adm;
+  public setMode(mode: string) {
+    this.user.mode = mode;
   }
 
   // url = this.globalVars.getBaseURL() + '/api/test/';

@@ -2,6 +2,10 @@
     float: right;
 }
 
+#mainContainer{
+    height: 100%!important;
+}
+
 #matDrawer {
     min-width: 150px;
 }
@@ -13,4 +17,13 @@
 .menu {
     padding-top: 30px;
     text-align: center;
+}
+
+#upper-menu{
+    min-height: 75%!important;
+}
+
+#lower-menu{
+    position:relative;
+    bottom:0;
 }

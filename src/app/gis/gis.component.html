@@ -1,7 +1,8 @@
 <ngx-ui-loader></ngx-ui-loader>
 <ngx-ui-loader [loaderId]="'rasveta'"></ngx-ui-loader>
 <mat-drawer-container id="mainContainer">
-    <mat-drawer #sideNav mode="side" opened="true" id="matDrawer">
+  <mat-drawer #sideNav mode="side" opened="true" id="matDrawer">
+    <div id="upper-menu">
       <button mat-icon-button class="hideSideNavBtn" (click)="sideNav.toggle()">
         <mat-icon>maximize</mat-icon>
       </button>
@@ -38,7 +39,8 @@
                     <mat-icon *ngIf="subkat.collapsed && subkat.layers.length>0">arrow_drop_down_circle</mat-icon>
                     {{subkat.opis}}
                   </button>
-                  <button mat-icon-button *ngIf="!subkat.collapsed && subkat.layers.length>0" (click)="checkAll(subkat)">
+                  <button mat-icon-button *ngIf="!subkat.collapsed && subkat.layers.length>0"
+                    (click)="checkAll(subkat)">
                     <mat-icon matListIcon>
                       done_all</mat-icon>
                   </button>
@@ -61,91 +63,63 @@
           </button>
         </div>
         <div class="grey_comments" id="odricanje">
-          <p>
-            Podaci u GIS-u su orijentacioni
-          </p>
-          <p>
-            i nisu za službenu upotrebu.
-          </p>
+          <p>Podaci u GIS-u su orijentacioni</p>
+          <p>i nisu za službenu upotrebu.</p>
         </div>
       </div>
-      <div  class="login">
-        <div *ngIf="isLoggedIn(); then loggedInBlock else notLoggedInBlock">
-        </div>
-        <div *ngIf="isModerator()">
-          <button [routerLink]="['imovina']" class="menuBtn">
-            Imovina
-          </button>
-        </div>
-      </div>
-    </mat-drawer>
-    <mat-drawer-content>
-        <div class="showSideNavContainer">
-          <button mat-raised-button *ngIf="!sideNav.opened" class="showSideNavBtn" (click)="sideNav.toggle()">
-            <mat-icon>launch</mat-icon>
-          </button>
-        </div>
-        <app-mapa>
-        </app-mapa>
-    </mat-drawer-content>
-  </mat-drawer-container>
-  
+    </div>
+    <div id="lower-menu">
+      <lower-menu>
+      </lower-menu>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="showSideNavContainer">
+      <button mat-raised-button *ngIf="!sideNav.opened" class="showSideNavBtn" (click)="sideNav.toggle()">
+        <mat-icon>launch</mat-icon>
+      </button>
+    </div>
+    <app-mapa>
+    </app-mapa>
+  </mat-drawer-content>
+</mat-drawer-container>
+
 <!-- Filter template -->
 <ng-template #filter let-l='l'>
-    <div *ngFor="let filter of l.filteri">
-      <button mat-button (click)="reloadLayer(l)">
-        <mat-icon>filter_list</mat-icon>
-      </button>
-      <mat-form-field appearance="outline" class="searchfield">
-        <mat-label>{{filter.opis}}</mat-label>
-        <input matInput [(ngModel)]="filter.searchstring" (keydown)="$event.stopPropagation()"
-          (keyup.enter)="reloadLayer(l)">
-      </mat-form-field>
-    </div>
-  </ng-template>
-  
-  
-  <!-- Layers template -->
-  <ng-template #listitem let-k='k'>
-    <mat-list-item *ngFor="let l of k.layers"
-      style="font-size: small; height: fit-content; padding-bottom: 2px; padding-left: 10px">
-      <div matLine class="mn-slojevi">
-        <button mat-button (click)="clickLayer(l)" class="btn-sloj">
-          <mat-icon *ngIf="!l.checked">check_box_outline_blank</mat-icon>
-          <mat-icon *ngIf="l.checked">check_box</mat-icon>
-          {{l.naziv}}
-        </button>
-        <button [disabled]="!(l.checked && l.fillColor)" [ngStyle]="{'opacity': !(l.checked && l.fillColor) ? '0' : '1'}"
-          (click)="changeLayerPreview($event, l)" class="btn-legend" mat-button>
-          <mat-icon [ngStyle]="{'color': l.fillColor}">brush</mat-icon>
-        </button>
-        <button [disabled]="!(l.checked && l.legend)" [ngStyle]="{'opacity': !(l.checked && l.legend) ? '0' : '1'}"
-          (click)="displayLegend(l)" class="btn-legend" mat-button>
-          <mat-icon>live_help</mat-icon>
-        </button>
-      </div>
-      <p matLine *ngIf="l.checked">
-        <ng-container *ngTemplateOutlet="filter; context: {l: l}"></ng-container>
-      </p>
-    </mat-list-item>
-  </ng-template>
-  
-  <!-- Login templates -->
-  <ng-template #loggedInBlock>
-    <p>
-      <button (click)="logout()" matTooltip="Odjavi se">
-        <mat-icon>logout</mat-icon>
-      </button>
-    </p>
-    <p class="grey_comments" id="korisnik">
-      Korisnik: {{username()}}
-    </p>
-  </ng-template>
-  <ng-template #notLoggedInBlock>
-    <p class="login">
-      <button (click)="displayLogin()" matTooltip="Prijavi se">
-        <mat-icon>login</mat-icon>
-      </button>
-    </p>
-  </ng-template>
+  <div *ngFor="let filter of l.filteri">
+    <button mat-button (click)="reloadLayer(l)">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+    <mat-form-field appearance="outline" class="searchfield">
+      <mat-label>{{filter.opis}}</mat-label>
+      <input matInput [(ngModel)]="filter.searchstring" (keydown)="$event.stopPropagation()"
+        (keyup.enter)="reloadLayer(l)">
+    </mat-form-field>
+  </div>
+</ng-template>
 
+
+<!-- Layers template -->
+<ng-template #listitem let-k='k'>
+  <mat-list-item *ngFor="let l of k.layers"
+    style="font-size: small; height: fit-content; padding-bottom: 2px; padding-left: 10px">
+    <div matLine class="mn-slojevi">
+      <button mat-button (click)="clickLayer(l)" class="btn-sloj">
+        <mat-icon *ngIf="!l.checked">check_box_outline_blank</mat-icon>
+        <mat-icon *ngIf="l.checked">check_box</mat-icon>
+        {{l.naziv}}
+      </button>
+      <button [disabled]="!(l.checked && l.fillColor)" [ngStyle]="{'opacity': !(l.checked && l.fillColor) ? '0' : '1'}"
+        (click)="changeLayerPreview($event, l)" class="btn-legend" mat-button>
+        <mat-icon [ngStyle]="{'color': l.fillColor}">brush</mat-icon>
+      </button>
+      <button [disabled]="!(l.checked && l.legend)" [ngStyle]="{'opacity': !(l.checked && l.legend) ? '0' : '1'}"
+        (click)="displayLegend(l)" class="btn-legend" mat-button>
+        <mat-icon>live_help</mat-icon>
+      </button>
+    </div>
+    <p matLine *ngIf="l.checked">
+      <ng-container *ngTemplateOutlet="filter; context: {l: l}"></ng-container>
+    </p>
+  </mat-list-item>
+</ng-template>

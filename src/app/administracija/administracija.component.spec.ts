@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GisComponent } from './gis.component';
+import { AdministracijaComponent } from './administracija.component';
 
-describe('GisComponent', () => {
-  let component: GisComponent;
-  let fixture: ComponentFixture<GisComponent>;
+describe('AdministracijaComponent', () => {
+  let component: AdministracijaComponent;
+  let fixture: ComponentFixture<AdministracijaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GisComponent ]
+      declarations: [ AdministracijaComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GisComponent);
+    fixture = TestBed.createComponent(AdministracijaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

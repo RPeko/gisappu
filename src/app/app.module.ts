@@ -36,6 +36,8 @@ import { ObjekatService } from './providers/objekat.service';
 import { ImovinaComponent } from './imovina/imovina.component';
 import { GisComponent } from './gis/gis.component';
 import { UsersComponent } from './users/users.component';
+import { LowerMenuComponent } from './lower-menu/lower-menu.component';
+import { AdministracijaComponent } from './administracija/administracija.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'green',
@@ -80,6 +82,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ImovinaComponent,
     GisComponent,
     UsersComponent,
+    LowerMenuComponent,
+    AdministracijaComponent,
   ],
   imports: [
     BrowserModule,

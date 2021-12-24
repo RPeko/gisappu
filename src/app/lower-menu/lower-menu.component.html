@@ -1,0 +1,35 @@
+<div class="shared-menu">
+    <div *ngIf="isLoggedIn(); then loggedInBlock else notLoggedInBlock">
+    </div>
+</div>
+  
+<!-- Login templates -->
+<ng-template #loggedInBlock>
+    <div  class="menu">
+      <button (click)="logout()" matTooltip="Odjavi se" class="menuBtn">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+    <div class="grey_comments" id="korisnik">
+      Korisnik: {{username()}}
+    </div>
+    <div *ngIf="isModerator() && mode()!='imovina'"  class="menu">
+      <button (click)="modeImovina()" class="menuBtn">Imovina</button>
+    </div>
+    <div *ngIf="mode()!='gis'"  class="menu">
+      <button (click)="modeGis()" class="menuBtn">GIS</button>
+  </div>
+  <div *ngIf="isAdmin() && mode()!='administracija'"  class="menu">
+    <button (click)="modeAdministracija()" class="menuBtn">Administracija</button>
+  </div>
+  <div>
+  </div>
+ 
+  </ng-template>
+  <ng-template #notLoggedInBlock>
+    <p class="login" class="menu">
+      <button (click)="displayLogin()" matTooltip="Prijavi se" class="menuBtn">
+        <mat-icon>login</mat-icon>
+      </button>
+    </p>
+  </ng-template>
