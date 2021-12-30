@@ -5,7 +5,7 @@ import { GlobalVars } from './globalVars';
 
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 
@@ -17,12 +17,10 @@ export class AuthService {
   constructor(private http: HttpClient, private globalVars: GlobalVars) { }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post(this.globalVars.getBaseURL() + '/api/auth/signin', { username, password }, httpOptions);
+    return this.http.post(this.globalVars.getBaseURL() + '/auth/signin', { username, password }, httpOptions);
   }
 
   register(username: string, email: string, password: string, roles: string[]): Observable<any>{
-    return this.http.post(this.globalVars.getBaseURL() + '/api/auth/signup', {username, email, password, roles }, httpOptions);
+    return this.http.post(this.globalVars.getBaseURL() + '/auth/signup', {username, email, password, roles }, httpOptions);
   }
-
-
 }

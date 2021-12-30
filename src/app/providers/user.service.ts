@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/models/user';
-import { TokenStorageService } from './token-storage.service';
 
 
 @Injectable({
@@ -8,7 +7,8 @@ import { TokenStorageService } from './token-storage.service';
 })
 
 export class UserService {
-  user: User;
+  user: User = new User();
+  
   constructor() {
   }
 
@@ -28,12 +28,14 @@ export class UserService {
   }
 
   hasRole(role: string) {
-    return this.user.roles.includes(role);
+    return this.user?.roles.includes(role);
   }
 
   public setMode(mode: string) {
     this.user.mode = mode;
   }
+
+  
 
   // url = this.globalVars.getBaseURL() + '/api/test/';
 

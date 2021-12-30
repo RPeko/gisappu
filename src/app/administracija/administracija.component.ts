@@ -13,10 +13,16 @@ export class AdministracijaComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    console.log(this.mode);
   }
 
-  changeMode(){
-    console.log("mode: " + this.mode);
+  changeMode(m: string){
+    this.mode = m;
+    console.log(this.mode);
+  }
+  
+  is_users(){
+    return this.mode == 'users';
   }
 
 }

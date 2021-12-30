@@ -7,8 +7,8 @@ import { AuthService } from '../providers/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-// roles_options = ['ROLE_USER', 'ROLE_MODERATOR', 'ROLE_ADMIN'];
-roles_options = ['mod', 'admin'];
+// roles_options = ['ROLE_MODERATOR', 'ROLE_ADMIN'];
+roles_options = ['user','mod', 'admin']
 
   form: any = {
     username: null,

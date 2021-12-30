@@ -6,8 +6,8 @@
       </button>
       <div id="menu-mode">
         <mat-button-toggle-group
-        [(ngModel)]="mode" 
-        (change)="changeMode()" vertical>
+        checked="mode" 
+        (change)="changeMode($event.value)" vertical>
           <mat-button-toggle class="btn-toggle-mode" value="users">Korisnici</mat-button-toggle>  
           <mat-button-toggle class="btn-toggle-mode" value="registracija">Registracija</mat-button-toggle>
         </mat-button-toggle-group>
@@ -19,12 +19,12 @@
     </div>
   </mat-drawer>
   <mat-drawer-content>
-    <div *ngIf="mode=='users'; then users else registracija"></div>
+    <div *ngIf="is_users(); then users else registracija"></div>
   </mat-drawer-content>
 </mat-drawer-container>
 
 <ng-template #users>
-  aaaaaaaaaaaa sredi users
+  <users></users>
 </ng-template>
 
 <ng-template #registracija>
