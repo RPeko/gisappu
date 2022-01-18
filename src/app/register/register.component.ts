@@ -12,7 +12,7 @@ import { AuthService } from '../providers/auth.service';
 })
 
 export class RegisterComponent implements OnInit {
-// roles_options = ['ROLE_MODERATOR', 'ROLE_ADMIN'];
+// roles_options = ['ROLE_USER', 'ROLE_MODERATOR', 'ROLE_ADMIN'];
 roles_options = ['user','mod', 'admin'];
 
 userForm = new FormGroup({
@@ -37,13 +37,24 @@ userForm = new FormGroup({
               @Inject(MAT_DIALOG_DATA) public user: User) { }
 
   ngOnInit(): void {
-    console.log(JSON.stringify(this.user));
+    // console.log(JSON.stringify(this.user));
     this.userForm.setValue({
       username : this.user.username,
       email: this.user.email,
       password: null,
-      roles:this.user.roles
+      roles:this.user.roles.map(r => this.convertRole(r['name']))
     });
+  }
+
+  convertRole(r: string){
+    switch(r){
+      case 'ROLE_USER':
+      return 'user'
+      case 'ROLE_MODERATOR':
+      return 'mod'
+      case 'ROLE_ADMIN':
+      return 'admin'
+    }
   }
 
   onSubmit1(): void {
