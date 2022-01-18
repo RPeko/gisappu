@@ -1,9 +1,33 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+  <label for="username">Korisničko ime: </label>
+  <input id="username" type="text" formControlName="username">
+
+  <label for="email">Email: </label>
+  <input id="email" type="text" formControlName="email">
+
+  <label for="password">Šifra: </label>
+  <input id="password" type="text" formControlName="password">
+
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Ovlašćenja</mat-label>
+      <mat-select id="roles"  formControlName="roles" multiple>
+        <mat-option *ngFor="let role of roles_options" [value]="role">{{role}}</mat-option>
+      </mat-select>
+    </mat-form-field>    
+  </div>
+
+  <button type="submit" [disabled]="!userForm.valid">Potvrdi</button>
+</form>
+
+
 <div class="col-md-12">
     <div class="card card-container">
       <form
         *ngIf="!isSuccessful"
         name="form"
-        (ngSubmit)="f.form.valid && onSubmit()"
+        (ngSubmit)="f.form.valid && onSubmit1()"
         #f="ngForm"
         novalidate
       >

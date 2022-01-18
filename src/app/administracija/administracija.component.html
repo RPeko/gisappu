@@ -4,14 +4,6 @@
       <button mat-icon-button class="hideSideNavBtn" (click)="sideNav.toggle()">
         <mat-icon>maximize</mat-icon>
       </button>
-      <div id="menu-mode">
-        <mat-button-toggle-group
-        checked="mode" 
-        (change)="changeMode($event.value)" vertical>
-          <mat-button-toggle class="btn-toggle-mode" value="users">Korisnici</mat-button-toggle>  
-          <mat-button-toggle class="btn-toggle-mode" value="registracija">Registracija</mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
     </div>
     <div id="lower-menu">
       <lower-menu>
@@ -19,14 +11,6 @@
     </div>
   </mat-drawer>
   <mat-drawer-content>
-    <div *ngIf="is_users(); then users else registracija"></div>
+    <users></users>
   </mat-drawer-content>
 </mat-drawer-container>
-
-<ng-template #users>
-  <users></users>
-</ng-template>
-
-<ng-template #registracija>
-  <registracija></registracija>
-</ng-template>

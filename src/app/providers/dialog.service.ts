@@ -5,6 +5,8 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { Layer } from 'src/models/layer';
 import { DialogLayerPreviewComponent } from 'src/app/dialog-layer-preview/dialog-layer-preview.component';
 import { LoginComponent } from '../login/login.component';
+import { RegisterComponent } from '../register/register.component';
+import { User } from 'src/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -50,4 +52,10 @@ displayLogin(){
   });
 }
 
+displayRegistration(user: User){
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.data = user;
+  dialogConfig.width = '300px';
+  const dialogRef = this.dialog.open(RegisterComponent, dialogConfig);
+}
 }

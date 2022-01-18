@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/models/user';
+import { AuthService } from './auth.service';
 import { GlobalVars } from './globalVars';
 
 
@@ -10,10 +11,12 @@ import { GlobalVars } from './globalVars';
 })
 
 export class UsersService {;
-  constructor(private globalVars: GlobalVars, private http: HttpClient) {
+  constructor(private globalVars: GlobalVars, 
+              private http: HttpClient,
+              private authService: AuthService ) {
   }
 
-  public getAllUsers(): Observable<User[]> {
+  public getAllUsers(): Observable<any[]> {
     const httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -22,8 +25,7 @@ export class UsersService {;
             'Access-Control-Allow-Origin': '*'
         })
         };
-    return this.http.get<User[]>(this.globalVars.baseURL + '/api/users/',  httpOptions);
+    return this.http.get<User[]>(this.globalVars.baseURL + '/auth/users/',  httpOptions);
 }
-
 
 }

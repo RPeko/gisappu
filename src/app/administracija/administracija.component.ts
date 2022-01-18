@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/models/user';
+import { EventEmitterService } from '../providers/event-emitter.service';
 
 @Component({
   selector: 'administracija',
@@ -8,21 +10,10 @@ import { Router } from '@angular/router';
 })
 
 export class AdministracijaComponent implements OnInit {
-  mode = 'users';
 
-  constructor(private router: Router) { }
+  constructor(private eventEmitter: EventEmitterService) { }
 
   ngOnInit(): void {
-    console.log(this.mode);
-  }
-
-  changeMode(m: string){
-    this.mode = m;
-    console.log(this.mode);
-  }
-  
-  is_users(){
-    return this.mode == 'users';
   }
 
 }

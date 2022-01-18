@@ -35,24 +35,4 @@ export class UserService {
     this.user.mode = mode;
   }
 
-  
-
-  // url = this.globalVars.getBaseURL() + '/api/test/';
-
-  // getPublicContent(): Observable<any> {
-  //   return this.http.get(this.url + 'all', {responseType: 'text'});
-  //  }
-
-  // getUserBoard(): Observable<any> {
-  //   return this.http.get(this.url + 'user', {responseType: 'text'});
-  // }
-
-  // getModeratorBoard(): Observable<any> {
-  //   return this.http.get(this.url + 'mod', { responseType: 'text' });
-  // }
-
-  // getAdminBoard(): Observable<any> {
-  //   return this.http.get(this.url + 'admin', { responseType: 'text' });
-  // }
-
 }

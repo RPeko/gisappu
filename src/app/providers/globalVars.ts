@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class GlobalVars {
 
   // baseURL = 'https://www.vrbasgis.net:8443/gis-4.0.3';
-  baseURL = 'http://localhost:8081'
+  baseURL = 'http://localhost:8081';
 
   constructor() {
   }

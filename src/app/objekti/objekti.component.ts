@@ -5,7 +5,7 @@ import { Objekat, ObjekatSchema } from 'src/models/objekat';
 import { ObjekatService } from '../providers/objekat.service';
 
 @Component({
-  selector: 'app-objekti',
+  selector: 'objekti',
   templateUrl: './objekti.component.html',
   styleUrls: ['./objekti.component.scss']
 })
@@ -25,7 +25,7 @@ export class ObjektiComponent implements OnInit {
       lista => this.dataSource.data = lista);
   }
 
-  editRow(row) {
+  editRow(row: any) {
     if (row.id === 0) {
       this.objekatService.addObjekat(row).subscribe(res => {
         row.id = res.id;

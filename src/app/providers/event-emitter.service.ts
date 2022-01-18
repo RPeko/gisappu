@@ -11,5 +11,6 @@ export class EventEmitterService {
   layerSwitch = new EventEmitter();
   layerPreviewChange = new EventEmitter();
   rgzAdreseSwitch = new EventEmitter();
+  editUserSwitch = new EventEmitter();
 }
 
