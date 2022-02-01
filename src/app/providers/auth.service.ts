@@ -27,8 +27,8 @@ export class AuthService {
     return this.http.post(this.globalVars.getBaseURL() + '/auth/signup', {username, email, password, roles }, httpOptions);
   }
 
-  edit(id: number, email: string, password: string, roles: string[]): Observable<any>{
-    return this.http.post(this.globalVars.getBaseURL() + '/auth/signup', {id, email, password, roles }, httpOptions);
+  update(id: number, email: string, password: string, roles: string[]): Observable<any>{
+    return this.http.post(this.globalVars.getBaseURL() + '/auth/update', {id, email, password, roles }, httpOptions);
   }
 
   delete(id: number):Observable<any>{
