@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from 'src/models/user';
 import { DialogLayerPreviewComponent } from '../dialog-layer-preview/dialog-layer-preview.component';
-import { ConfirmedValidator } from '../helpers/confirmed.validator';
+import Validation from '../helpers/validation';
 import { AuthService } from '../providers/auth.service';
 
 @Component({
@@ -14,11 +14,11 @@ import { AuthService } from '../providers/auth.service';
 
 export class RegisterComponent implements OnInit {
   roles_options = ['user', 'mod', 'admin'];
-  isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
   userForm: FormGroup;
   submitText = "Registruj";
+  unamePattern = "^[a-zA-Z0-9_]+$";
 
 
   constructor(private authService: AuthService,
@@ -31,19 +31,22 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     // console.log(JSON.stringify(this.user));
     this.userForm = this.formBuilder.group({
-      username: [this.user.username, [Validators.required,
-      Validators.pattern('^[a-zA-Z]+$'),
+      username: [this.user.username,
+      [Validators.required,
+      Validators.pattern(this.unamePattern),
       Validators.minLength(4),
-      Validators.maxLength(15)
-      ]],
+      Validators.maxLength(15)]
+      ],
       email: [this.user.email, [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       repassword: ['', [Validators.required]],
       roles: [this.user.roles.map(r => this.convertRole(r['name']))]
-    }, 
-    {validator: ConfirmedValidator('password', 'repassword')}
+    },
+      {
+        validators: [Validation.match('password', 'repassword')]
+      }
     );
-    if (this.user.id){
+    if (this.user.id) {
       this.userForm.controls['username'].disable();
       this.submitText = "Edituj";
     }
@@ -73,9 +76,8 @@ export class RegisterComponent implements OnInit {
     if (!this.user.id) {
       this.authService.register(username, email, password, roles).subscribe(
         data => {
-          console.log(data);
-          this.isSuccessful = true;
           this.isSignUpFailed = false;
+          this.dialogRef.close(false);
         },
         err => {
           this.errorMessage = err.error.message;
@@ -85,9 +87,9 @@ export class RegisterComponent implements OnInit {
     } else {
       this.authService.update(this.user.id, email, password, roles).subscribe(
         data => {
-          console.log(data);
-          this.isSuccessful = true;
+          console.log("data:   " + JSON.stringify(data));
           this.isSignUpFailed = false;
+          this.dialogRef.close(false);
         },
         err => {
           this.errorMessage = err.error.message;
@@ -95,8 +97,6 @@ export class RegisterComponent implements OnInit {
         }
       );
     }
-    this.dialogRef.close(false);
-
   }
 
 }

@@ -38,6 +38,9 @@ displayedColumns: string[] = ['username','email','delete','edit'];
 
   editUser(user:User){
     console.log("poslato: " + JSON.stringify(this.users));
+    // this.dialogService.dialog.afterAllClosed.subscribe(
+    //   () => {this.usersService.getAllUsers().subscribe(lista => this.users = lista);}
+    // ); 
     this.dialogService.displayRegistration(user);
   }
 
